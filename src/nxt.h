@@ -1,9 +1,10 @@
 #ifndef NXT_H
 #define NXT_H
 
-#include <QObject>
 #include <memory>
-using namespace std;
+#include <QObject>
+#include "nxt_lib/nxt.h"
+
 
 class Nxt : public QObject
 {
@@ -24,7 +25,7 @@ signals:
 private:
     bool m_isConnected;
 
-    shared_ptr<Connection> connection;
+    std::shared_ptr<Connection> connection;
 
     void setIsConnected(bool value);
 
