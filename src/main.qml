@@ -24,8 +24,8 @@ ApplicationWindow {
 
     MainForm {
         anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
+        onConnectCommand: nxt.Connect(port)
+        onDisconnectCommand: nxt.Disconnect()
     }
 
     MessageDialog {

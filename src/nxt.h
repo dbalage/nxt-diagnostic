@@ -9,26 +9,29 @@
 class Nxt : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool isConnected READ isConnected WRITE setIsConnected MEMBER _isConnected NOTIFY isConnectedChanged)
 
 public:
     Nxt();
-    Connect(const int port);
-    Disconnect();
+    Nxt(const Nxt &other):
+        _connection(other._connection),
+        _isConnected(other._isConnected)
+    {}
+    virtual ~Nxt();
 
-    bool isConnected() const { return m_isConnected; }
+    bool isConnected() const { return _isConnected; }
+    void setIsConnected(bool value) { _isConnected = value; }
 
 public slots:
+    void Connect(const int port);
+    void Disconnect();
 
 signals:
     void isConnectedChanged(bool value);
 
 private:
-    bool m_isConnected;
-
-    std::shared_ptr<Connection> connection;
-
-    void setIsConnected(bool value);
-
+    bool _isConnected;
+    std::shared_ptr<Connection> _connection;
 };
 
 #endif // NXT_H

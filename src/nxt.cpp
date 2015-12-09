@@ -1,4 +1,4 @@
-#include "nxt.h"
+#include "Nxt.h"
 
 #include <QDebug>
 #include "nxt_lib/nxt.h"
@@ -7,13 +7,18 @@ Nxt::Nxt()
 {
 }
 
-Nxt::Connect(const int port)
+Nxt::~Nxt()
+{
+    Disconnect();
+}
+
+void Nxt::Connect(const int port)
 {
     try
     {
-        connection =  std::make_shared<Bluetooth>();
-        qDebug() << "Try to connect to the NXT";
-        connection->connect(port);
+        _connection =  std::make_shared<Bluetooth>();
+        qDebug() << "Try to connect to the NXT on port" << port;
+        _connection->connect(port);
         qDebug() << "Connected";
     }
     catch (Nxt_exception& e)
@@ -23,11 +28,13 @@ Nxt::Connect(const int port)
         qWarning() << "error code: " << e.error_code();
         qWarning() << "error type: " << e.error_type();
         qWarning() << QString::fromStdString(e.who());
-        connection->disconnect();
+        _connection->disconnect();
     }
 }
 
-Nxt::Disconnect()
+void Nxt::Disconnect()
 {
-    connection->disconnect();
+    _connection->disconnect();
+    _connection = nullptr;
+    qDebug() << "Disconnected";
 }

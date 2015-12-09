@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     nxt_lib/sensor.cpp \
     nxt_lib/sonar.cpp \
     nxt_lib/tilt.cpp \
-    nxt.cpp
+    Nxt.cpp \
+    NxtApplication.cpp
 
 RESOURCES += qml.qrc
 
@@ -54,6 +55,7 @@ HEADERS += \
     nxt_lib/temperature.h \
     nxt_lib/tilt.h \
     nxt_lib/touch.h \
-    nxt.h
+    Nxt.h \
+    NxtApplication.h
 
 LIBS += -lws2_32
