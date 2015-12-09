@@ -19,6 +19,7 @@ void Nxt::Connect(const int port)
         _connection =  std::make_shared<Bluetooth>();
         qDebug() << "Try to connect to the NXT on port" << port;
         _connection->connect(port);
+        setIsConnected(true);
         qDebug() << "Connected";
     }
     catch (Nxt_exception& e)
@@ -36,5 +37,6 @@ void Nxt::Disconnect()
 {
     _connection->disconnect();
     _connection = nullptr;
+    setIsConnected(false);
     qDebug() << "Disconnected";
 }

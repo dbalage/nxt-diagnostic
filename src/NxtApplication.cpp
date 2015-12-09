@@ -5,6 +5,7 @@
 NxtApplication::NxtApplication(int argc, char *argv[])
     : QApplication(argc, argv), engine(), nxt()
 {
+    engine.rootContext()->setContextProperty("nxt", &nxt);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     // A QML gyökérelemre szükségünk van ahhoz, hogy tudjunk hivatkozni a QML-es elemekre.
@@ -16,7 +17,5 @@ NxtApplication::NxtApplication(int argc, char *argv[])
     }
     // A QML környezet is felállt, bekötjük a signalokat a QML és C++ oldal között.
     QObject *rootObject = rootObjects[0];
-
-    engine.rootContext()->setContextProperty("nxt", &nxt);
 }
 
