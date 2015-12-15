@@ -21,7 +21,10 @@ SOURCES += main.cpp \
     nxt_lib/sonar.cpp \
     nxt_lib/tilt.cpp \
     Nxt.cpp \
-    NxtApplication.cpp
+    NxtApplication.cpp \
+    NxtStatus.cpp \
+    NxtMonitor.cpp \
+    NxtStatusHistory.cpp
 
 RESOURCES += qml.qrc
 
@@ -56,6 +59,9 @@ HEADERS += \
     nxt_lib/tilt.h \
     nxt_lib/touch.h \
     Nxt.h \
-    NxtApplication.h
+    NxtApplication.h \
+    NxtStatus.h \
+    NxtMonitor.h \
+    NxtStatusHistory.h
 
 LIBS += -lws2_32

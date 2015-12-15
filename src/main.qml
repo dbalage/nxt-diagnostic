@@ -24,8 +24,6 @@ ApplicationWindow {
 
     MainForm {
         anchors.fill: parent
-        onConnectCommand: nxt.Connect(port)
-        onDisconnectCommand: nxt.Disconnect()
     }
 
     MessageDialog {

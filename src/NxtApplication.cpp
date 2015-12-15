@@ -3,13 +3,15 @@
 #include <QQmlContext>
 
 NxtApplication::NxtApplication(int argc, char *argv[])
-    : QApplication(argc, argv), engine(), nxt()
+    : QApplication(argc, argv),
+      _engine(), _nxt(), _nxtMonitor(_nxt)
 {
-    engine.rootContext()->setContextProperty("nxt", &nxt);
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    _engine.rootContext()->setContextProperty("nxt", &_nxt);
+    _engine.rootContext()->setContextProperty("nxtMonitor", &_nxtMonitor);
+    _engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     // A QML gyökérelemre szükségünk van ahhoz, hogy tudjunk hivatkozni a QML-es elemekre.
-    auto rootObjects = engine.rootObjects();
+    auto rootObjects = _engine.rootObjects();
     if (rootObjects.size() == 0)
     {
         qDebug() << "HIBA: Nem sikerült létrehozni a QML környezetet.";

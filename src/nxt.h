@@ -4,6 +4,7 @@
 #include <memory>
 #include <QObject>
 #include "nxt_lib/nxt.h"
+#include "NxtStatus.h"
 
 
 class Nxt : public QObject
@@ -13,19 +14,10 @@ class Nxt : public QObject
 
 public:
     Nxt();
-    Nxt(const Nxt &other):
-        _connection(other._connection),
-        _isConnected(other._isConnected)
-    {}
     virtual ~Nxt();
 
     bool isConnected() const { return _isConnected; }
-    void setIsConnected(bool value)  {
-        if (value != _isConnected) {
-            _isConnected = value;
-            emit isConnectedChanged(_isConnected);
-        }
-    }
+    std::unique_ptr<NxtStatus> getStatus();
 
 public slots:
     void Connect(const int port);
@@ -35,8 +27,19 @@ signals:
     void isConnectedChanged(bool value);
 
 private:
+    std::unique_ptr<Connection> _connection;
+    std::unique_ptr<Brick> _brick;
+    std::unique_ptr<Motor> _motorA;
+    std::unique_ptr<Touch> _touch;
+
     bool _isConnected = false;
-    std::shared_ptr<Connection> _connection;
+
+    void setIsConnected(bool value)  {
+        if (value != _isConnected) {
+            _isConnected = value;
+            emit isConnectedChanged(_isConnected);
+        }
+    }
 };
 
 #endif // NXT_H

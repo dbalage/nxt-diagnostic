@@ -6,24 +6,19 @@ Item {
     width: 640
     height: 480
 
-    // Signalok, melyek a kiadott parancsokat jelzik és a nyomógombok
-    //  eseménykezelői aktiválják őket.
-    signal connectCommand(int port);
-    signal disconnectCommand;
-
     RowLayout {
         anchors.centerIn: parent
 
         Button {
             id: connectButton
             text: qsTr("Connect")
-            onClicked: connectCommand(connectionPortTextEdit.text)
+            onClicked: nxt.Connect(connectionPortTextEdit.text)
         }
 
         Button {
             id: disconnectButton
             text: qsTr("Disconnect")
-            onClicked: disconnectCommand()
+            onClicked: nxt.Disconnect()
         }
     }
 
@@ -54,6 +49,42 @@ Item {
         enabled: false
         activeFocusOnPress: false
         checked: nxt.isConnected
+    }
+
+    TableView {
+        id: tableView
+        anchors.rightMargin: 0
+            anchors.topMargin: 271
+
+            frameVisible: false
+            sortIndicatorVisible: false
+
+            anchors.fill: parent
+
+            Layout.minimumWidth: 400
+            Layout.minimumHeight: 240
+            Layout.preferredWidth: 600
+            Layout.preferredHeight: 400
+
+            TableViewColumn {
+                id: motorAColumn
+                title: "Motor A"
+                role: "motorA"
+                movable: false
+                resizable: false
+                width: 100
+            }
+
+            TableViewColumn {
+                id: touchColumn
+                title: "Touch"
+                role: "touch"
+                movable: false
+                resizable: false
+                width: 100
+            }
+
+            model: nxtMonitor.history.statusList
     }
 }
 
