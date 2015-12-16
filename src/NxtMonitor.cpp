@@ -8,18 +8,19 @@ NxtMonitor::NxtMonitor(Nxt& nxt)
     : _nxt(nxt), _history()
 {
     connect(&_nxt, &Nxt::isConnectedChanged, [this](bool isConnected){
-        if(isConnected)
-            _timer.start(500);
-        else
+        if(isConnected){
+            _timer.start(100);
+        } else {
             _timer.stop();
+        }
     });
 
-    //connect(&_timer, &QTimer::timeout, tick);
-    connect(&_timer, SIGNAL(timeout()), this, SLOT(tick()));
+    connect(&_timer, &QTimer::timeout, this, &NxtMonitor::tick);
 }
 
 void NxtMonitor::tick()
 {
     auto status = _nxt.getStatus();
+
     _history.Add(*status.get());
 }

@@ -24,6 +24,8 @@ ApplicationWindow {
 
     MainForm {
         anchors.fill: parent
+        connectButton.onClicked: nxt.Connect(connectionPort)
+        disconnectButton.onClicked: nxt.Disconnect()
     }
 
     MessageDialog {

@@ -8,7 +8,7 @@ NxtStatusHistory::NxtStatusHistory()
 
 void NxtStatusHistory::Add(const NxtStatus& status)
 {
-    auto newStatus = std::make_shared<NxtStatus>();
+    std::shared_ptr<NxtStatus> newStatus = std::make_shared<NxtStatus>();
     newStatus->CopyFrom(status);
     _statusList.insert(0, newStatus.get());
     _currentStatus = newStatus;

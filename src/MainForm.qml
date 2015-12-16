@@ -3,8 +3,13 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
 
 Item {
-    width: 640
-    height: 480
+    width: 1000
+    height: 500
+
+    property alias connectionPort: connectionPortTextEdit.text
+
+    property alias connectButton: connectButton
+    property alias disconnectButton: disconnectButton
 
     RowLayout {
         anchors.centerIn: parent
@@ -12,13 +17,13 @@ Item {
         Button {
             id: connectButton
             text: qsTr("Connect")
-            onClicked: nxt.Connect(connectionPortTextEdit.text)
+            //onClicked: nxt.Connect(connectionPortTextEdit.text)
         }
 
         Button {
             id: disconnectButton
             text: qsTr("Disconnect")
-            onClicked: nxt.Disconnect()
+            //onClicked: nxt.Disconnect()
         }
     }
 
@@ -76,6 +81,24 @@ Item {
             }
 
             TableViewColumn {
+                id: motorBColumn
+                title: "Motor B"
+                role: "motorB"
+                movable: false
+                resizable: false
+                width: 100
+            }
+
+            TableViewColumn {
+                id: motorCColumn
+                title: "Motor C"
+                role: "motorC"
+                movable: false
+                resizable: false
+                width: 100
+            }
+
+            TableViewColumn {
                 id: touchColumn
                 title: "Touch"
                 role: "touch"
@@ -84,7 +107,47 @@ Item {
                 width: 100
             }
 
+            TableViewColumn {
+                id: distanceColumn
+                title: "Distance"
+                role: "distance"
+                movable: false
+                resizable: false
+                width: 100
+            }
+
+            TableViewColumn {
+                id: soundColumn
+                title: "Sound"
+                role: "sound"
+                movable: false
+                resizable: false
+                width: 100
+            }
+
+            TableViewColumn {
+                id: lightColumn
+                title: "Light"
+                role: "light"
+                movable: false
+                resizable: false
+                width: 100
+            }
+
             model: nxtMonitor.history.statusList
+    }
+
+    Switch {
+        id: lightSwitch
+        x: 330
+        y: 55
+        rotation: 90
+        checked: nxt.isLightOn
+        Binding {
+            target: nxt
+            property: "isLightOn"
+            value: lightSwitch.checked
+        }
     }
 }
 
